@@ -22,8 +22,8 @@
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
         <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
 
-            <h1 class="text-center text-xl font-semibold p-6">Welcome to Laravel</h1>
-            <p class="text-center text-md p-6">This is a Laravel application with Vite and Tailwind CSS.</p>
+            <h1 class="text-center text-xl font-semibold p-6">Contact Us</h1>
+            <p class="text-center text-md p-6">This is the contact us page.</p>
 
         </div>
     </body>
