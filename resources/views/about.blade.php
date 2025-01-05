@@ -5,4 +5,3 @@
 
     <p class="text-black text-md">This is the about page.</p>
 </x-layout>
-    
