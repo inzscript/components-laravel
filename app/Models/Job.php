@@ -12,12 +12,17 @@ class Job extends Model {
     // Syntax for defining the table name that uses job_listings
     protected $table = 'job_listings';
 
-    protected $fillable = [
-        'title',
-        'description',
-        'location',
-        'salary',
-    ];
+    // protected $fillable = [
+    //     'title',
+    //     'description',
+    //     'location',
+    //     'salary',
+    //     'employer_id',
+    // ];
+
+    // Instead of protecting the fillable fields, we can use guarded to protect the fields
+    // Syntax accepts all fields
+    protected $guarded = [];
 
     // Syntax for defining the relationship between the Job and Employer models
     public function employer() {
