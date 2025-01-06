@@ -9,4 +9,9 @@ class Employer extends Model
 {
     /** @use HasFactory<\Database\Factories\EmployerFactory> */
     use HasFactory;
+
+    // Syntax for defining the relationship between the Employer and Job models
+    public function jobs() {
+        return $this->hasMany(Job::class);
+    }
 }

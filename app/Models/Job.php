@@ -18,4 +18,9 @@ class Job extends Model {
         'location',
         'salary',
     ];
+
+    // Syntax for defining the relationship between the Job and Employer models
+    public function employer() {
+        return $this->belongsTo(Employer::class);
+    }
 }
