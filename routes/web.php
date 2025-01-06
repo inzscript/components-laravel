@@ -9,8 +9,12 @@ Route::get('/', function () {
 
 Route::get('/jobs', function () {
     // Get jobs from the database more efficiently eagar loading the employer
-    $jobs = Job::with('employer')->get();
-    // $jobs = Job::all();
+    // $jobs = Job::with('employer')->get();
+
+    // Get jobs from the database with pagination
+    $jobs = Job::with('employer')->simplePaginate(5);
+    // $jobs = Job::with('employer')->cursorPaginate(5);
+    // $jobs = Job::with('employer')->paginate(5);
 
     return view('jobs', [
         'jobs' => $jobs
