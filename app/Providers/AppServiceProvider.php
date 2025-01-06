@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\DatabaseEloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,5 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        EloquentModel::preventLazyLoading();
     }
 }
