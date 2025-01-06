@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('job_listings', function (Blueprint $table) {
             $table->id();
+            // relationship with employers table
+            // $table->unsignedBigInteger('employer_id');
+            $table->foreignIdFor(\App\Models\Employer::class); // this is the same as the above lines
             $table->string('title');
             $table->text('description');
             $table->string('location');

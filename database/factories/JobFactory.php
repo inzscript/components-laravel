@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Employer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +19,12 @@ class JobFactory extends Factory
     {
         return [
             // Add all the table columns here from job_listings
+            // Link employer_id to the Employer and recycle existing employers.
+            'employer_id' => Employer::inRandomOrder()->first()->id ?? Employer::factory(),
             'title' => fake()->jobTitle(),
             'description' => fake()->paragraph(),
             'location' => fake()->city() . ', ' . fake()->state(),
-            'salary' => fake()->randomFloat(2, 1000, 100000)  . ' ' . fake()->currencyCode() . fake()->randomElement([' per year', ' per month']),
+            'salary' => '$' . fake()->randomFloat(2, 1000, 100000)  . ' USD' . fake()->randomElement([' per year', ' per month']),
             'created_at' => fake()->dateTime(),
         ];
     }
