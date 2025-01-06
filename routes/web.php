@@ -43,6 +43,13 @@ Route::post('/jobs', function () {
     // $job->employer_id = 1;
     // $job->save();
 
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'job_description' => 'required',
+        'job_location' => 'required',
+        'job_salary' => 'required'
+    ]);
+
     Job::create([
         'title' => request('title'),
         'description' => request('job_description'),
