@@ -5,11 +5,23 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
+use App\Jobs\TranslateJob;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('test-email', function () {
-    Mail::to('inzscript@gmail.com')->send(new App\Mail\JobPosted());
-    return new App\Mail\JobPosted();
+    $job = Job::first();
+    // Mail::to('inzscript@gmail.com')->send(new App\Mail\JobPosted());
+    // return new App\Mail\JobPosted();
+
+    // Dispatch email request to the queue in the database.
+    // dispatch(function () {
+    //     logger('Dispatched job');
+    // });
+
+    // Use a dispatched dedicated job to queue the email request.
+    \App\Jobs\TranslateJob::dispatch($job);
+
+    Return 'Dispatched job';
 });
 
 Route::view('/', 'home');
