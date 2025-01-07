@@ -7,6 +7,7 @@ Route::get('/', function () {
     return view('home');
 });
 
+// Displays all jobs listings
 Route::get('/jobs', function () {
     // Get jobs from the database more efficiently eagar loading the employer
     // $jobs = Job::with('employer')->get();
@@ -21,11 +22,13 @@ Route::get('/jobs', function () {
     ]);
 });
 
+// Displays the form to create a new job listing
 Route::get('/jobs/create', function () {
     // dd('Hello there!');
     return view('jobs.create');
 });
 
+// Displays a single job listing
 Route::get('/jobs/{id}', function ($id) {
     // search for the job with the given id
     $job = Job::find($id);
@@ -33,15 +36,8 @@ Route::get('/jobs/{id}', function ($id) {
     return view('jobs.show', ['job' => $job]);
 });
 
+// Saves the new job listing to the database
 Route::post('/jobs', function () {
-    // dd(request()->all());
-    // $job = new Job();
-    // $job->title = request('title');
-    // $job->description = request('job_description');
-    // $job->location = request('job_location');
-    // $job->salary = request('job_salary');
-    // $job->employer_id = 1;
-    // $job->save();
 
     request()->validate([
         'title' => ['required', 'min:3'],
@@ -57,6 +53,44 @@ Route::post('/jobs', function () {
         'salary' => request('job_salary'),
         'employer_id' => 1
     ]);
+
+    return redirect('/jobs');
+});
+
+// Edit a job listing
+Route::get('/jobs/{id}/edit', function ($id) {
+    $job = Job::find($id);
+    return view('jobs.edit', ['job' => $job]);
+});
+
+// Update a job listing
+Route::patch('/jobs/{id}', function ($id) {
+    // validate the request
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'job_description' => 'required',
+        'job_location' => 'required',
+        'job_salary' => 'required'
+    ]);
+
+    // Find job and check if it exists
+    $job = Job::findOrFail($id);
+    
+    $job->update([
+        'title' => request('title'),
+        'description' => request('job_description'),
+        'location' => request('job_location'),
+        'salary' => request('job_salary')
+    ]);
+
+    return redirect('/jobs/' . $job->id);
+});
+
+// Delete a job listing
+Route::delete('/jobs/{id}', function ($id) {
+    // Authorize the request 
+    // Find job and check if it exists
+    Job::findOrFail($id)->delete();
 
     return redirect('/jobs');
 });
