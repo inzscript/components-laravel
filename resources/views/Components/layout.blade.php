@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Example Site - Laravel</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>     
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 
 </head>
     <body class="font-sans antialiased h-full">
