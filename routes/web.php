@@ -5,6 +5,12 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
+use Illuminate\Support\Facades\Mail;
+
+Route::get('test-email', function () {
+    Mail::to('inzscript@gmail.com')->send(new App\Mail\JobPosted());
+    return new App\Mail\JobPosted();
+});
 
 Route::view('/', 'home');
 Route::view('/contact', 'contact');
