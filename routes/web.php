@@ -22,21 +22,18 @@ Route::get('/jobs', function () {
     ]);
 });
 
-// Displays the form to create a new job listing
+// Create
 Route::get('/jobs/create', function () {
-    // dd('Hello there!');
+    // dd($job);
     return view('jobs.create');
 });
 
-// Displays a single job listing
-Route::get('/jobs/{id}', function ($id) {
-    // search for the job with the given id
-    $job = Job::find($id);
-    // dd($job);
+// Show
+Route::get('/jobs/{job}', function (Job $job) {
     return view('jobs.show', ['job' => $job]);
 });
 
-// Saves the new job listing to the database
+// Store
 Route::post('/jobs', function () {
 
     request()->validate([
@@ -57,14 +54,13 @@ Route::post('/jobs', function () {
     return redirect('/jobs');
 });
 
-// Edit a job listing
-Route::get('/jobs/{id}/edit', function ($id) {
-    $job = Job::find($id);
+// Edit
+Route::get('/jobs/{job}/edit', function (Job $job) {
     return view('jobs.edit', ['job' => $job]);
 });
 
-// Update a job listing
-Route::patch('/jobs/{id}', function ($id) {
+// Update 
+Route::patch('/jobs/{job}', function (Job $job) {
     // validate the request
     request()->validate([
         'title' => ['required', 'min:3'],
@@ -72,9 +68,6 @@ Route::patch('/jobs/{id}', function ($id) {
         'job_location' => 'required',
         'job_salary' => 'required'
     ]);
-
-    // Find job and check if it exists
-    $job = Job::findOrFail($id);
     
     $job->update([
         'title' => request('title'),
@@ -86,12 +79,10 @@ Route::patch('/jobs/{id}', function ($id) {
     return redirect('/jobs/' . $job->id);
 });
 
-// Delete a job listing
-Route::delete('/jobs/{id}', function ($id) {
-    // Authorize the request 
-    // Find job and check if it exists
-    Job::findOrFail($id)->delete();
-
+// Delete
+Route::delete('/jobs/{job}', function (Job $job) {
+    // Authorize the request
+    $job->delete();
     return redirect('/jobs');
 });
 
